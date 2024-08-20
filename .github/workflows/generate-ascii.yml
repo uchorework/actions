@@ -14,8 +14,8 @@ jobs:
 
             - name: Execute shell script
               run: |
-                chmod +x ./shell-script-demo.sh
-                ./shell-script-demo.sh
+                chmod +x .github/workflows/shell-script-demo.sh
+                .github/workflows/shell-script-demo.sh
 
 
         
