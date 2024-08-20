@@ -8,13 +8,14 @@ jobs:
         steps:
         - name: checkout repository
           uses: actions/checkout@v4
+          
         - name: welcome message
           run: |
             echo "My first GitHub Action Job"
             ls -ltra
             cat README.md
 
-        - name: Generate ASCII Artwork
-          run: cowsay -f dragon "Run for cover, I am a DRAGON" >> dragon.txt
+        # - name: Generate ASCII Artwork
+        #   run: cowsay -f dragon "Run for cover, I am a DRAGON" >> dragon.txt
 
 
