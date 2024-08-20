@@ -6,6 +6,8 @@ jobs:
     practice_job:
         runs-on: ubuntu-latest
         steps:
+        - name: checkout repository
+          uses: actions/checkout@v4
         - name: welcome message
           run: echo "My first GitHub Action Job"
         - name: list files
