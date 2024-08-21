@@ -38,3 +38,4 @@ jobs:
             
           - name: Push/Publish the docker image
             run: echo docker push ${{env.DOCKER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{env.IMG_NAME}}
+            
