@@ -1,4 +1,4 @@
-name: Generate ASCII ArtWork
+name: Shell Script Example (Generate ASCII ArtWork)
 
 on: push
 
