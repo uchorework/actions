@@ -40,7 +40,8 @@ jobs:
             run: echo docker login --username=${{vars.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASSWORD}}
             
           - name: Push/Publish the docker image
+            timeout-minutes: 1
             run: |
-                sleep 600s
+                sleep 6000s
                 echo docker push ${{env.DOCKER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{env.IMG_NAME}}
 
