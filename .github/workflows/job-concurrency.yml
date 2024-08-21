@@ -1,4 +1,4 @@
-name: Exploring Variables & Secrets
+name: Job concurrency
 
 on:
     workflow_dispatch:  
@@ -43,4 +43,4 @@ jobs:
             run: |
                 sleep 600s
                 echo docker push ${{env.DOCKER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{env.IMG_NAME}}
-                
+
