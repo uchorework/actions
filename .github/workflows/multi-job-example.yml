@@ -1,0 +1,64 @@
+name: Multi Job Example
+
+on: push
+
+jobs:
+  job1_list_existing_files:
+    steps:
+      - name: Display current files in the repo
+        run: |
+          ls -ltra
+    runs-on: ubuntu-latest
+
+
+  job2_install_pkg:
+    needs: job1_list_existing_files
+    steps:  
+      - name: Install cowsay package
+        run: |
+          sudo apt-get install cowsay -y
+          cowsay -f dragon "Run for cover, I am a DRAGON" >> dragon.txt
+    
+      - name: Uploading Artifact (dragon.txt)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dragon-txt-file
+          path: dragon.txt #this is saved in root dir
+          
+    runs-on: ubuntu-latest
+ 
+    
+  job3_test_installation:
+    needs: job2_install_pkg
+    steps:
+      - name: Downloading/Referring Artifact (dragon.txt)
+        uses: actions/download-artifact@v4
+        with:
+          name: dragon-txt-file
+
+      - name: Test file exists
+        run: |
+          grep -i "dragon" dragon.txt
+    runs-on: ubuntu-latest
+   
+    
+  job4_display_file:
+    needs: [job3_test_installation]
+    steps:
+      - name: Downloading/Referring Artifact (dragon.txt)
+        uses: actions/download-artifact@v4
+        with:
+          name: dragon-txt-file
+    
+      - name: Read file 
+        run: |
+          cat dragon.txt
+    runs-on: ubuntu-latest
+    
+
+
+# The Artifacts will be kept in GitHub for 90 days (default)
+# You can modify this by going to : Github Setting -> Actions -> General tab -> "Artifact & Log retention period"
+
+
+      
