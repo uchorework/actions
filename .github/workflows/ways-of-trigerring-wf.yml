@@ -1,0 +1,40 @@
+name: Exploring Variables & Secrets
+
+on:
+    workflow_dispatch:  
+#   schedule:
+#     - cron: "*/1 * * * *"
+
+#### workflow level env variables ####
+env:
+    DOCKER_REGISTRY: docker.io
+    IMG_NAME: github-actions-nginx
+
+jobs:
+
+#### step level env variables ####
+    build-docker-img:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Building Docker image 
+            #   env:
+            #     DOCKER_REGISTRY: docker.io
+            #     DOCKER_USERNAME: uchorework
+            #     IMG_NAME: github-actions-nginx
+              run: echo docker build -t ${{env.DOCKER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/$IMG_NAME
+
+#### job level env variables ####                
+    docker-image-publish:
+        # env: 
+            # DOCKER_REGISTRY: docker.io
+            # DOCKER_USERNAME: uchorework
+            # DOCKER_PASSWORD: #********* (Added this at repository level)
+            # IMG_NAME: github-actions-nginx
+        runs-on: ubuntu-latest
+        needs: build-docker-img
+        steps:
+          - name: Login to DockerHub
+            run: echo docker login --username=${{vars.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASSWORD}}
+            
+          - name: Push/Publish the docker image
+            run: echo docker push ${{env.DOCKER_REGISTRY}}/${{vars.DOCKER_USERNAME}}/${{env.IMG_NAME}}
